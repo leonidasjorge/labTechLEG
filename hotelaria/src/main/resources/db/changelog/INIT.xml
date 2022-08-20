@@ -7,6 +7,91 @@
 
 	<changeSet id="1" author="LEG - Soluções em TI">
 		<preConditions onFail="MARK_RAN"
+			onFailMessage="Já existe a tabela CLIENTE">
+			<not>
+				<tableExists tableName="cliente" />
+			</not>
+		</preConditions>
+
+		<createTable tableName="cliente">
+			<column name="cpf" type="int">
+				<constraints nullable="false" primaryKey="true"
+					primaryKeyName="pk_cliente" />
+			</column>
+			<column name="nome" type="${descricao}">
+				<constraints nullable="false" />
+			</column>
+			<column name="sobreNome" type="${descricao}">
+				<constraints nullable="false" />
+			</column>
+			<column name="data_nascimento" type="${data}">
+				<constraints nullable="false" />
+			</column>
+			<column name="telefone" type="${descricao}">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+
+	<changeSet id="2" author="LEG - Soluções em TI">
+		<preConditions onFail="MARK_RAN"
+			onFailMessage="Já existe a tabela HOSPEDAGEM">
+			<not>
+				<tableExists tableName="hospedagem" />
+			</not>
+		</preConditions>
+
+		<createTable tableName="hospedagem">
+			<column name="id" type="int">
+				<constraints primaryKey="true"
+					primaryKeyName="pk_hospedagem" nullable="false" />
+			</column>
+			<column name="check_in" type="DateTime">
+				<constraints nullable="false" />
+			</column>
+			<column name="check_out" type="DateTime">
+			</column>
+		</createTable>
+
+		<addAutoIncrement tableName="hospedagem"
+			columnName="id" columnDataType="int" incrementBy="1" startWith="1" />
+	</changeSet>
+
+	<changeSet id="3" author="LEG - Soluções em TI">
+		<preConditions onFail="MARK_RAN"
+			onFailMessage="Já existe a tabela RESERVA">
+			<not>
+				<tableExists tableName="reserva" />
+			</not>
+		</preConditions>
+
+		<createTable tableName="reserva">
+			<column name="id" type="int">
+				<constraints primaryKey="true"
+					primaryKeyName="pk_reserva" nullable="false" />
+			</column>
+			<column name="data_reserva" type="${data}">
+				<constraints nullable="false" />
+			</column>
+			<column name="data_entrada" type="${data}">
+				<constraints nullable="false" />
+			</column>
+			<column name="data_saida" type="${data}">
+				<constraints nullable="false" />
+			</column>
+			<column name="cliente_cpf" type="int">
+				<constraints nullable="false"
+					foreignKeyName="fk_reserva_cliente" referencedTableName="cliente"
+					referencedColumnNames="cpf" />
+			</column>	
+		</createTable>
+
+		<addAutoIncrement tableName="reserva" columnName="id"
+			columnDataType="int" startWith="1" incrementBy="1" />
+	</changeSet>
+
+	<changeSet id="4" author="LEG - Soluções em TI">
+		<preConditions onFail="MARK_RAN"
 			onFailMessage="Já existe a tabela HOSPEDE">
 			<not>
 				<tableExists tableName="hospede" />
@@ -30,46 +115,16 @@
 			<column name="telefone" type="${descricao}">
 				<constraints nullable="false" />
 			</column>
-		</createTable>
-	</changeSet>
 
-	<changeSet id="2" author="LEG - Soluções em TI">
-		<preConditions onFail="MARK_RAN"
-			onFailMessage="Já existe a tabela RESERVA">
-			<not>
-				<tableExists tableName="reserva" />
-			</not>
-		</preConditions>
-
-		<createTable tableName="reserva">
-			<column name="id" type="int">
-				<constraints primaryKey="true"
-					primaryKeyName="pk_reserva" nullable="false" />
-			</column>
-			<column name="data_reserva" type="${data}">
-				<constraints nullable="false" />
-			</column>
-			<column name="data_entrada" type="${data}">
-				<constraints nullable="false" />
-			</column>
-			<column name="data_saida" type="${data}">
-				<constraints nullable="false" />
-			</column>
-			<column name="sub_total" type="${valor}">
-				<constraints nullable="false" />
-			</column>
-			<column name="hospede_cpf" type="int">
+			<column name="reserva_id" type="int">
 				<constraints nullable="false"
-					foreignKeyName="fk_reserva_hospede" referencedTableName="hospede"
-					referencedColumnNames="cpf" />
+					foreignKeyName="fk_hospede_reserva" referencedTableName="reserva"
+					referencedColumnNames="id" />
 			</column>
 		</createTable>
-
-		<addAutoIncrement tableName="reserva" columnName="id"
-			columnDataType="int" startWith="1" incrementBy="1" />
 	</changeSet>
 
-	<changeSet id="3" author="LEG - Soluções em TI">
+	<changeSet id="5" author="LEG - Soluções em TI">
 		<preConditions onFail="MARK_RAN"
 			onFailMessage="Já existe a tabela QUARTO">
 			<not>
@@ -89,39 +144,18 @@
 				<constraints nullable="false" />
 			</column>
 			<column name="reserva_id" type="int">
-				<constraints nullable="false"
+				<constraints nullable="true"
 					foreignKeyName="fk_quarto_reserva" referencedTableName="reserva"
 					referencedColumnNames="id" />
-			</column>			
+			</column>
+			<column name="hospedagem_id" type="int">
+				<constraints nullable="true"
+					foreignKeyName="fk_quarto_hospedagem"
+					referencedTableName="hospedagem" referencedColumnNames="id" />
+			</column>
 		</createTable>
 
 		<addAutoIncrement tableName="quarto" columnName="id"
 			columnDataType="int" incrementBy="1" startWith="1" />
-	</changeSet>
-	
-	<changeSet id="4" author="LEG - Soluções em TI">
-		<preConditions onFail="MARK_RAN"
-			onFailMessage="Já existe a tabela HOSPEDAGEM">
-			<not>
-				<tableExists tableName="hospedagem" />
-			</not>
-		</preConditions>
-
-		<createTable tableName="hospedagem">
-			<column name="id" type="int">
-				<constraints primaryKey="true"
-					primaryKeyName="pk_hospedagem" nullable="false" />
-			</column>
-			<column name="check_in" type="DateTime">
-				<constraints nullable="false" />
-			</column>
-			<column name="check_out" type="DateTime">
-			</column>
-			<column name="valor_total" type="${valor}">
-			</column>
-		</createTable>
-
-		<addAutoIncrement tableName="hospedagem"
-			columnName="id" columnDataType="int" incrementBy="1" startWith="1" />
 	</changeSet>
 </databaseChangeLog>

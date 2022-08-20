@@ -1,6 +1,6 @@
 package br.com.tiacademy.hotelaria.domain;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -23,13 +23,12 @@ public class Reserva {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	private Date data_reserva;
-	private Date data_entrada;
-	private Date data_saida;
-	private Double sub_total;
+	private LocalDate data_reserva;
+	private LocalDate data_entrada;
+	private LocalDate data_saida;
 	
 	@ManyToOne
-	@JoinColumn(name = "hospede_cpf", referencedColumnName = "cpf")
-	private Hospede hospede;
+	@JoinColumn(name = "cliente_cpf", referencedColumnName = "cpf")
+	private Cliente cliente;
 	
 }

@@ -12,7 +12,6 @@ public class HospedagemService extends CrudService<Hospedagem, Integer> {
 	protected Hospedagem editarEntidade(Hospedagem buscarId, Hospedagem entidade) {
 		buscarId.setCheck_in(entidade.getCheck_in());
 		buscarId.setCheck_out(entidade.getCheck_out());
-		buscarId.setValor_total(entidade.getValor_total());
 		
 		return buscarId;
 	}

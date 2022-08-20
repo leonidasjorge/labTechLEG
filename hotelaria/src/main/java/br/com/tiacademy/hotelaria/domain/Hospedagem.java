@@ -1,6 +1,6 @@
 package br.com.tiacademy.hotelaria.domain;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -21,8 +21,7 @@ public class Hospedagem {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	private Date check_in;
-	private Date check_out;
-	private Double valor_total;
-
+	private LocalDate check_in;
+	private LocalDate check_out;
+	
 }

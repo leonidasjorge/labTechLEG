@@ -6,6 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -27,5 +28,9 @@ public class Quarto {
 	@ManyToOne
 	@JoinColumn(name = "reserva_id", referencedColumnName = "id")
 	private Reserva reserva;
+	
+	@OneToOne
+	@JoinColumn(name = "hospedagem_id", referencedColumnName = "id")
+	private Hospedagem hospedagem;
 	
 }

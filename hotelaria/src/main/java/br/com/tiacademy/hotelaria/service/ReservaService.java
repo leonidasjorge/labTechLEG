@@ -13,7 +13,6 @@ public class ReservaService extends CrudService<Reserva, Integer> {
 		buscarId.setData_reserva(entidade.getData_reserva());
 		buscarId.setData_entrada(entidade.getData_entrada());
 		buscarId.setData_saida(entidade.getData_saida());
-		buscarId.setSub_total(entidade.getSub_total());
 		
 		return buscarId;
 	}
