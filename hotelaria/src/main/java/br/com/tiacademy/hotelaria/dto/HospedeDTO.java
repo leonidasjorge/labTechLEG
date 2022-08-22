@@ -1,9 +1,7 @@
-package br.com.tiacademy.hotelaria.domain;
+package br.com.tiacademy.hotelaria.dto;
 
+import java.io.Serializable;
 import java.time.LocalDate;
-
-import javax.persistence.Entity;
-import javax.persistence.Id;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,16 +9,13 @@ import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
 @Data
-@Entity
 @NoArgsConstructor
-public class Cliente {
-	
-	@Id
+public class HospedeDTO implements Serializable {
+
 	private String cpf;
-	
+
 	private LocalDate data_nascimento;
 	private String nome;
 	private String sobrenome;
 	private String telefone;
-	
 }

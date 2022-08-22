@@ -7,5 +7,5 @@ import br.com.tiacademy.hotelaria.domain.Reserva;
 
 @Repository
 public interface ReservaRepository extends CrudRepository<Reserva, Integer>{
-
+	
 }

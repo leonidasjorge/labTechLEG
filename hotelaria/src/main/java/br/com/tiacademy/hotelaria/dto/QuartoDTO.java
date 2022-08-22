@@ -1,11 +1,10 @@
-package br.com.tiacademy.hotelaria.domain;
+package br.com.tiacademy.hotelaria.dto;
+
+import java.io.Serializable;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 
 import br.com.tiacademy.hotelaria.emun.Tipo;
 import lombok.AllArgsConstructor;
@@ -16,10 +15,8 @@ import lombok.NoArgsConstructor;
 @Data
 @Entity
 @NoArgsConstructor
-public class Quarto {
+public class QuartoDTO implements Serializable {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
 	@Enumerated(EnumType.STRING)

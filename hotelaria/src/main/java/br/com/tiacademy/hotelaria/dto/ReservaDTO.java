@@ -1,13 +1,12 @@
-package br.com.tiacademy.hotelaria.domain;
+package br.com.tiacademy.hotelaria.dto;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Transient;
 
 import lombok.AllArgsConstructor;
@@ -18,20 +17,15 @@ import lombok.NoArgsConstructor;
 @Data
 @Entity
 @NoArgsConstructor
-public class Hospedagem {
+public class ReservaDTO implements Serializable {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	private LocalDate check_in;
-	private LocalDate check_out;
+	private LocalDate data_reserva;
+	private LocalDate data_entrada;
+	private LocalDate data_saida;
 	
 	@Transient
-	private Double total;
-	
-	@ManyToOne
-	@JoinColumn(name = "reserva_id", referencedColumnName = "id")
-	private Reserva reserva;
+	private Double sub_total;
 	
 }

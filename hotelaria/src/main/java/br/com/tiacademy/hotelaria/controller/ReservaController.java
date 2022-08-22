@@ -14,5 +14,5 @@ public class ReservaController extends CrudController<Reserva, Integer> {
 	
 	@Autowired
 	protected ReservaRepository repository;
-	
+
 }

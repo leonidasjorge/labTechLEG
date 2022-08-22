@@ -18,7 +18,7 @@ import lombok.NoArgsConstructor;
 public class Hospede {
 	
 	@Id
-	private Integer cpf;
+	private String cpf;
 
 	private LocalDate data_nascimento;
 	private String nome;

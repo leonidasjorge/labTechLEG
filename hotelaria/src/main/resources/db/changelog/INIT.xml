@@ -14,7 +14,7 @@
 		</preConditions>
 
 		<createTable tableName="cliente">
-			<column name="cpf" type="int">
+			<column name="cpf" type="${descricao}">
 				<constraints nullable="false" primaryKey="true"
 					primaryKeyName="pk_cliente" />
 			</column>
@@ -35,26 +35,27 @@
 
 	<changeSet id="2" author="LEG - Soluções em TI">
 		<preConditions onFail="MARK_RAN"
-			onFailMessage="Já existe a tabela HOSPEDAGEM">
+			onFailMessage="Já existe a tabela QUARTO">
 			<not>
-				<tableExists tableName="hospedagem" />
+				<tableExists tableName="quarto" />
 			</not>
 		</preConditions>
 
-		<createTable tableName="hospedagem">
+		<createTable tableName="quarto">
 			<column name="id" type="int">
 				<constraints primaryKey="true"
-					primaryKeyName="pk_hospedagem" nullable="false" />
+					primaryKeyName="pk_quarto" nullable="false" />
 			</column>
-			<column name="check_in" type="DateTime">
+			<column name="tipo" type="${descricao}">
 				<constraints nullable="false" />
 			</column>
-			<column name="check_out" type="DateTime">
+			<column name="valor_diaria" type="${valor}">
+				<constraints nullable="false" />
 			</column>
 		</createTable>
 
-		<addAutoIncrement tableName="hospedagem"
-			columnName="id" columnDataType="int" incrementBy="1" startWith="1" />
+		<addAutoIncrement tableName="quarto" columnName="id"
+			columnDataType="int" incrementBy="1" startWith="1" />
 	</changeSet>
 
 	<changeSet id="3" author="LEG - Soluções em TI">
@@ -79,11 +80,17 @@
 			<column name="data_saida" type="${data}">
 				<constraints nullable="false" />
 			</column>
-			<column name="cliente_cpf" type="int">
+
+			<column name="cliente_cpf" type="${descricao}">
 				<constraints nullable="false"
 					foreignKeyName="fk_reserva_cliente" referencedTableName="cliente"
 					referencedColumnNames="cpf" />
-			</column>	
+			</column>
+			<column name="quarto_id" type="int">
+				<constraints nullable="false"
+					foreignKeyName="fk_reserva_quarto" referencedTableName="quarto"
+					referencedColumnNames="id" />
+			</column>
 		</createTable>
 
 		<addAutoIncrement tableName="reserva" columnName="id"
@@ -99,7 +106,7 @@
 		</preConditions>
 
 		<createTable tableName="hospede">
-			<column name="cpf" type="int">
+			<column name="cpf" type="${descricao}">
 				<constraints nullable="false" primaryKey="true"
 					primaryKeyName="pk_hospede" />
 			</column>
@@ -115,8 +122,7 @@
 			<column name="telefone" type="${descricao}">
 				<constraints nullable="false" />
 			</column>
-
-			<column name="reserva_id" type="int">
+ 			<column name="reserva_id" type="int">
 				<constraints nullable="false"
 					foreignKeyName="fk_hospede_reserva" referencedTableName="reserva"
 					referencedColumnNames="id" />
@@ -126,36 +132,31 @@
 
 	<changeSet id="5" author="LEG - Soluções em TI">
 		<preConditions onFail="MARK_RAN"
-			onFailMessage="Já existe a tabela QUARTO">
+			onFailMessage="Já existe a tabela HOSPEDAGEM">
 			<not>
-				<tableExists tableName="quarto" />
+				<tableExists tableName="hospedagem" />
 			</not>
 		</preConditions>
 
-		<createTable tableName="quarto">
+		<createTable tableName="hospedagem">
 			<column name="id" type="int">
 				<constraints primaryKey="true"
-					primaryKeyName="pk_quarto" nullable="false" />
+					primaryKeyName="pk_hospedagem" nullable="false" />
 			</column>
-			<column name="tipo" type="Char">
+			<column name="check_in" type="DateTime">
 				<constraints nullable="false" />
 			</column>
-			<column name="valor_diaria" type="${valor}">
-				<constraints nullable="false" />
+			<column name="check_out" type="DateTime">
 			</column>
+
 			<column name="reserva_id" type="int">
-				<constraints nullable="true"
-					foreignKeyName="fk_quarto_reserva" referencedTableName="reserva"
-					referencedColumnNames="id" />
-			</column>
-			<column name="hospedagem_id" type="int">
-				<constraints nullable="true"
-					foreignKeyName="fk_quarto_hospedagem"
-					referencedTableName="hospedagem" referencedColumnNames="id" />
+				<constraints nullable="false"
+					foreignKeyName="fk_hospedagem_reserva"
+					referencedTableName="reserva" referencedColumnNames="id" />
 			</column>
 		</createTable>
 
-		<addAutoIncrement tableName="quarto" columnName="id"
-			columnDataType="int" incrementBy="1" startWith="1" />
+		<addAutoIncrement tableName="hospedagem"
+			columnName="id" columnDataType="int" incrementBy="1" startWith="1" />
 	</changeSet>
 </databaseChangeLog>
