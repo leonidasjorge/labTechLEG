@@ -10,9 +10,15 @@ public class ReservaService extends CrudService<Reserva, Integer> {
 
 	@Override
 	protected Reserva editarEntidade(Reserva buscarId, Reserva entidade) {
-		buscarId.setData_reserva(entidade.getData_reserva());
-		buscarId.setData_entrada(entidade.getData_entrada());
-		buscarId.setData_saida(entidade.getData_saida());
+		
+		buscarId.setId(entidade.getId());
+		buscarId.setDataReserva(entidade.getDataReserva());
+		buscarId.setDataEntrada(entidade.getDataEntrada());
+		buscarId.setDataSaida(entidade.getDataSaida());
+		buscarId.setQuarto(entidade.getQuarto());
+
+		buscarId.getHospedes().clear();
+		buscarId.getHospedes().addAll(entidade.getHospedes());
 		
 		return buscarId;
 	}

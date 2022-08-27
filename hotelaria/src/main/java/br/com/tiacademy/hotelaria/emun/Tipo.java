@@ -5,4 +5,5 @@ public enum Tipo {
 	CASAL,
 	FAMILIAR,
 	SOLTEIRO;
+	
 }

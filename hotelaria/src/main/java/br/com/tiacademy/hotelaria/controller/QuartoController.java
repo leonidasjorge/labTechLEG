@@ -9,11 +9,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.tiacademy.hotelaria.core.crud.CrudController;
 import br.com.tiacademy.hotelaria.domain.Quarto;
+import br.com.tiacademy.hotelaria.dto.QuartoDTO;
 import br.com.tiacademy.hotelaria.repository.QuartoRepository;
 
 @RestController
 @RequestMapping("/quarto")
-public class QuartoController extends CrudController<Quarto, Integer> {
+public class QuartoController extends CrudController<Quarto, QuartoDTO, Integer> {
 
 	@Autowired
 	protected QuartoRepository repository;

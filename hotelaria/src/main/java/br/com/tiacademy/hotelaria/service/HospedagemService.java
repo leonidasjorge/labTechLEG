@@ -10,8 +10,8 @@ public class HospedagemService extends CrudService<Hospedagem, Integer> {
 
 	@Override
 	protected Hospedagem editarEntidade(Hospedagem buscarId, Hospedagem entidade) {
-		buscarId.setCheck_in(entidade.getCheck_in());
-		buscarId.setCheck_out(entidade.getCheck_out());
+		buscarId.setCheckIn(entidade.getCheckIn());
+		buscarId.setCheckOut(entidade.getCheckOut());
 		
 		return buscarId;
 	}

@@ -1,49 +1,42 @@
 package br.com.tiacademy.hotelaria.core.crud;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-public abstract class CrudController<T, ID> {
-
-	@Autowired
-	protected CrudService<T, ID> service;
-
-	@GetMapping
-	public ResponseEntity<List<T>> listarTodos() {
-		var listar = service.listarTodos();
-		return ResponseEntity.ok(listar);
-	}
-
-	@GetMapping("/{id}")
-	public ResponseEntity<T> listarPorId(@PathVariable("id") ID id) {
-		var listarId = service.porId(id);
-		return ResponseEntity.ok(listarId);
-	}
+public abstract class CrudController<T extends CrudDomain<ID>, D, ID> extends ReadController<T, D, ID> {
 
 	@PostMapping
-	public ResponseEntity<T> criar(@RequestBody T entidade) {
+	public ResponseEntity<D> criar(@RequestBody D dto) {
+		
+		var entidade = converter.dtoParaEntidade(dto);
 		var salvar = service.criar(entidade);
-		return ResponseEntity.ok(salvar);
+		
+		ServletUriComponentsBuilder builder = ServletUriComponentsBuilder.fromCurrentRequest();
+		
+		var uri = builder.path("/{id}").buildAndExpand(salvar.getId()).toUri();
+		
+		return ResponseEntity.created(uri).body(converter.entidadeParaDto(salvar));
+	}
+
+	@PutMapping("/{id}")
+	public ResponseEntity<D> editar(@PathVariable("id") ID id, @RequestBody D dto) {
+		
+		var novaEntidade = converter.dtoParaEntidade(dto);
+		var salvar = service.editar(id, novaEntidade);
+		
+		return ResponseEntity.ok(converter.entidadeParaDto(salvar));
+		
 	}
 
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> deletar(@PathVariable("id") ID id) {
 		service.deletar(id);
-		return ResponseEntity.ok().build();
-	}
-	
-	@PutMapping("/{id}")
-	public ResponseEntity<T> editar(@PathVariable("id") ID id, @RequestBody T entidade) {
-		var salvar = service.editar(id, entidade);
-		return ResponseEntity.ok(salvar);
-	}
+		return ResponseEntity.noContent().build();
+	}	
 
 }

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+				   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
+				   
+	<changeSet id="1" author="LEG - Soluções em TI">
+		<preConditions onFail="MARK_RAN" onFailMessage="Já existe a tabela HOSPEDE_RESERVA.">
+			<not>
+				<tableExists tableName="hospede_reserva" />
+			</not>
+		</preConditions>
+		
+		<createTable tableName="hospede_reserva">
+			<column name="hospede_id" type="int">
+				<constraints nullable="false"
+							 foreignKeyName="fk_hospede"
+							 referencedTableName="hospede"
+							 referencedColumnNames="id" />
+			</column>
+			<column name="reserva_id" type="int">
+				<constraints nullable="false"
+							 foreignKeyName="fk_reserva"
+							 referencedTableName="reserva"
+							 referencedColumnNames="id" />
+			</column>			
+		</createTable>
+	</changeSet>
+</databaseChangeLog>

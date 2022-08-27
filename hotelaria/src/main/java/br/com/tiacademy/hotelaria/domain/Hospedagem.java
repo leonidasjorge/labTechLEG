@@ -1,15 +1,17 @@
 package br.com.tiacademy.hotelaria.domain;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.Transient;
 
+import br.com.tiacademy.hotelaria.core.crud.CrudDomain;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,17 +20,17 @@ import lombok.NoArgsConstructor;
 @Data
 @Entity
 @NoArgsConstructor
-public class Hospedagem {
+public class Hospedagem implements CrudDomain<Integer>, Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	private LocalDate check_in;
-	private LocalDate check_out;
+	@Column(name = "check_in")
+	private LocalDate checkIn;
 	
-	@Transient
-	private Double total;
+	@Column(name = "check_out")
+	private LocalDate checkOut;
 	
 	@ManyToOne
 	@JoinColumn(name = "reserva_id", referencedColumnName = "id")

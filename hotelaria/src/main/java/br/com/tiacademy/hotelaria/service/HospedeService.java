@@ -11,7 +11,8 @@ public class HospedeService extends CrudService<Hospede, Integer>{
 	@Override
 	protected Hospede editarEntidade(Hospede buscarId, Hospede entidade) {
 		
-		buscarId.setData_nascimento(entidade.getData_nascimento());
+		buscarId.setCpf(entidade.getCpf());
+		buscarId.setDataNascimento(entidade.getDataNascimento());
 		buscarId.setNome(entidade.getNome());
 		buscarId.setSobrenome(entidade.getSobrenome());
 		buscarId.setTelefone(entidade.getTelefone());

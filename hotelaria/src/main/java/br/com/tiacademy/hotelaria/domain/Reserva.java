@@ -1,17 +1,21 @@
 package br.com.tiacademy.hotelaria.domain;
 
+import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.Transient;
 
+import br.com.tiacademy.hotelaria.core.crud.CrudDomain;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,28 +24,29 @@ import lombok.NoArgsConstructor;
 @Data
 @Entity
 @NoArgsConstructor
-public class Reserva {
+public class Reserva implements CrudDomain<Integer>, Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	private LocalDate data_reserva;
-	private LocalDate data_entrada;
-	private LocalDate data_saida;
+	@Column(name = "data_reserva")
+	private LocalDate dataReserva;
 	
-	@Transient
-	private Double sub_total;
+	@Column(name = "data_entrada")
+	private LocalDate dataEntrada;
 	
-	@ManyToOne
-	@JoinColumn(name = "cliente_cpf", referencedColumnName = "cpf")
-	private Cliente cliente;
-	
+	@Column(name = "data_saida")
+	private LocalDate dataSaida;
+
 	@OneToOne
 	@JoinColumn(name = "quarto_id", referencedColumnName = "id")
-	private Quarto quarto;
+	private Quarto quarto;	
 	
-	@OneToMany(mappedBy = "reserva")
-	private List<Hospede> hospedes;
-
+	@ManyToMany
+	@JoinTable(name = "hospede_reserva",
+			   joinColumns = @JoinColumn(name = "reserva_id"),
+			   inverseJoinColumns = @JoinColumn(name = "hospede_id"))
+	private List<Hospede> hospedes = new ArrayList<>();
+	
 }

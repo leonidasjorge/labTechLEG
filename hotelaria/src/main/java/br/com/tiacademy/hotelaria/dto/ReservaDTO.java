@@ -2,12 +2,8 @@ package br.com.tiacademy.hotelaria.dto;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Transient;
+import java.util.ArrayList;
+import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,17 +11,19 @@ import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
 @Data
-@Entity
 @NoArgsConstructor
 public class ReservaDTO implements Serializable {
 
 	private Integer id;
 	
-	private LocalDate data_reserva;
-	private LocalDate data_entrada;
-	private LocalDate data_saida;
+	private LocalDate dataReserva;
+	private LocalDate dataEntrada;
+	private LocalDate dataSaida;
 	
-	@Transient
-	private Double sub_total;
+	private QuartoDTO quarto;
 	
+	private Integer quartoId;
+	
+	private List<HospedeDTO> hospedesDTO = new ArrayList<>();
+
 }
