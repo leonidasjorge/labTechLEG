@@ -16,13 +16,15 @@ public class ReservaDTO implements Serializable {
 
 	private Integer id;
 	
-	private LocalDate dataReserva;
 	private LocalDate dataEntrada;
+	private LocalDate dataReserva;	
 	private LocalDate dataSaida;
 	
 	private QuartoDTO quarto;
 	
 	private Integer quartoId;
+	
+	private Double subTotal;
 	
 	private List<HospedeDTO> hospedesDTO = new ArrayList<>();
 

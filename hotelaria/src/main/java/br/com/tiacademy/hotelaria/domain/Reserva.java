@@ -2,6 +2,7 @@ package br.com.tiacademy.hotelaria.domain;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,15 +31,15 @@ public class Reserva implements CrudDomain<Integer>, Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
+	@Column(name = "data_entrada")
+	private LocalDate dataEntrada;	
+	
 	@Column(name = "data_reserva")
 	private LocalDate dataReserva;
 	
-	@Column(name = "data_entrada")
-	private LocalDate dataEntrada;
-	
 	@Column(name = "data_saida")
 	private LocalDate dataSaida;
-
+	
 	@OneToOne
 	@JoinColumn(name = "quarto_id", referencedColumnName = "id")
 	private Quarto quarto;	
@@ -48,5 +49,11 @@ public class Reserva implements CrudDomain<Integer>, Serializable {
 			   joinColumns = @JoinColumn(name = "reserva_id"),
 			   inverseJoinColumns = @JoinColumn(name = "hospede_id"))
 	private List<Hospede> hospedes = new ArrayList<>();
-	
+
+	public Double getSubTotal() {
+		
+		var valorMultiplicador = dataEntrada.until(dataSaida, ChronoUnit.DAYS) + 1L;
+		
+		return quarto.getValorDiaria() * valorMultiplicador;
+	}
 }

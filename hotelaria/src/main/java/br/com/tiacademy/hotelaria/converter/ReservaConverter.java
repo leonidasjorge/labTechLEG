@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 import br.com.tiacademy.hotelaria.core.crud.CrudConverter;
 import br.com.tiacademy.hotelaria.domain.Reserva;
+import br.com.tiacademy.hotelaria.dto.ReservaCriarDTO;
 import br.com.tiacademy.hotelaria.dto.ReservaDTO;
 import br.com.tiacademy.hotelaria.repository.QuartoRepository;
 import lombok.AllArgsConstructor;
@@ -25,9 +26,10 @@ public class ReservaConverter implements CrudConverter<Reserva, ReservaDTO> {
 		var dto = new ReservaDTO();
 		
 		dto.setId(entidade.getId());
+		dto.setDataEntrada(entidade.getDataEntrada());		
 		dto.setDataReserva(entidade.getDataReserva());
-		dto.setDataEntrada(entidade.getDataEntrada());
 		dto.setDataSaida(entidade.getDataSaida());
+		dto.setSubTotal(entidade.getSubTotal());
 		
 		dto.setQuarto(quartoConverter.entidadeParaDto(entidade.getQuarto()));
 
@@ -44,8 +46,8 @@ public class ReservaConverter implements CrudConverter<Reserva, ReservaDTO> {
 		var reserva = new Reserva();
 		
 		reserva.setId(dto.getId());
-		reserva.setDataReserva(dto.getDataReserva());
 		reserva.setDataEntrada(dto.getDataEntrada());
+		reserva.setDataReserva(dto.getDataReserva());
 		reserva.setDataSaida(dto.getDataSaida());
 		
 		reserva.setQuarto(quartoRepository.findById(dto.getQuartoId()).orElse(null));
@@ -59,4 +61,13 @@ public class ReservaConverter implements CrudConverter<Reserva, ReservaDTO> {
 		return reserva;
 	}
 
+	public Reserva dtoCriarParaEntidade(ReservaCriarDTO dto) {
+		
+		var reserva = new Reserva();
+		
+		reserva.setQuarto(quartoRepository.findById(dto.getQuartoId()).orElse(null));
+		
+		return reserva;
+	}
+	
 }

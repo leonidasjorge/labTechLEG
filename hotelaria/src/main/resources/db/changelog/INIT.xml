@@ -100,12 +100,12 @@
 							 referencedColumnNames="id" />
 			</column>			
 			
-			<column name="data_reserva" type="${data}">
-				<constraints nullable="false" />
-			</column>
 			<column name="data_entrada" type="${data}">
 				<constraints nullable="false" />
 			</column>
+			<column name="data_reserva" type="${data}">
+				<constraints nullable="false" />
+			</column>			
 			<column name="data_saida" type="${data}">
 				<constraints nullable="false" />
 			</column>
