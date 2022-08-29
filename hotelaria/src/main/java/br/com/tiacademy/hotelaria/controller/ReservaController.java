@@ -1,7 +1,10 @@
 package br.com.tiacademy.hotelaria.controller;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -39,5 +42,21 @@ public class ReservaController extends ReadController<Reserva, ReservaDTO, Integ
 		
 		return ResponseEntity.created(uri).body(converter.entidadeParaDto(salvar));
 	}
+	
+	@PutMapping("/{id}")
+	public ResponseEntity<ReservaDTO> editar(@PathVariable("id") Integer id, @RequestBody ReservaDTO dto) {
+		
+		var novaEntidade = getConverter().dtoParaEntidade(dto);
+		var salvar = getService().editar(id, novaEntidade);
+		
+		return ResponseEntity.ok(getConverter().entidadeParaDto(salvar));
+		
+	}	
+	
+	@DeleteMapping("/{id}")
+	public ResponseEntity<Void> deletar(@PathVariable("id") Integer id) {
+		getService().deletar(id);
+		return ResponseEntity.noContent().build();
+	}	
 	
 }
