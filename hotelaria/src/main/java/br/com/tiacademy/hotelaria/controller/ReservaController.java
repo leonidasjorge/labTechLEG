@@ -23,7 +23,7 @@ public class ReservaController extends ReadController<Reserva, ReservaDTO, Integ
 	
 	private ReservaConverter getConverter() {
 		return (ReservaConverter) converter;
-	};
+	}
 	
 	private ReservaService getService() {
 		return (ReservaService) service;
@@ -50,11 +50,11 @@ public class ReservaController extends ReadController<Reserva, ReservaDTO, Integ
 		var salvar = getService().editar(id, novaEntidade);
 		
 		return ResponseEntity.ok(getConverter().entidadeParaDto(salvar));
-		
-	}	
+	}
 	
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> deletar(@PathVariable("id") Integer id) {
+		
 		getService().deletar(id);
 		return ResponseEntity.noContent().build();
 	}	

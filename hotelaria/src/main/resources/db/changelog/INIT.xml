@@ -66,6 +66,9 @@
 			<column name="tipo" type="${descricao}">
 				<constraints nullable="false" />
 			</column>
+			<column name="status" type="${descricao}">
+				<constraints nullable="false" />
+			</column>
 			<column name="valor_diaria" type="${valor}">
 				<constraints nullable="false" />
 			</column>

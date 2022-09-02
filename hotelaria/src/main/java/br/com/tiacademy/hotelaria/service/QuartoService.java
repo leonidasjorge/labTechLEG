@@ -12,6 +12,7 @@ public class QuartoService extends CrudService<Quarto, Integer> {
 	protected Quarto editarEntidade(Quarto buscarId, Quarto entidade) {
 		
 		buscarId.setTipo(entidade.getTipo());
+		buscarId.setStatus(entidade.getStatus());
 		buscarId.setValorDiaria(entidade.getValorDiaria());
 		
 		return buscarId;

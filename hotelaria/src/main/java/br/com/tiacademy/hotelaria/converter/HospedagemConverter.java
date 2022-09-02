@@ -24,6 +24,8 @@ public class HospedagemConverter implements CrudConverter<Hospedagem, Hospedagem
 		dto.setId(entidade.getId());
 		dto.setCheckIn(entidade.getCheckIn());
 		dto.setCheckOut(entidade.getCheckOut());
+		dto.setTotal(entidade.getTotal());
+	
 		
 		dto.setReservaDTO(reservaConverter.entidadeParaDto(entidade.getReserva()));
 
@@ -39,6 +41,8 @@ public class HospedagemConverter implements CrudConverter<Hospedagem, Hospedagem
 		hospedagem.setId(dto.getId());
 		hospedagem.setCheckIn(dto.getCheckIn());
 		hospedagem.setCheckOut(dto.getCheckOut());
+		
+		
 		
 		hospedagem.setReserva(reservaRepository.findById(dto.getReservaId()).orElse(null));
 		

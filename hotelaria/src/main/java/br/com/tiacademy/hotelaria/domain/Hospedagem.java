@@ -2,6 +2,7 @@ package br.com.tiacademy.hotelaria.domain;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -31,6 +32,11 @@ public class Hospedagem implements CrudDomain<Integer>, Serializable {
 	
 	@Column(name = "check_out")
 	private LocalDate checkOut;
+	
+	public Double getTotal() {
+		var quantidadeDias = checkIn.until(checkOut, ChronoUnit.DAYS) + 1L;
+		return reserva.getQuarto().getValorDiaria() * quantidadeDias;
+	}
 	
 	@ManyToOne
 	@JoinColumn(name = "reserva_id", referencedColumnName = "id")

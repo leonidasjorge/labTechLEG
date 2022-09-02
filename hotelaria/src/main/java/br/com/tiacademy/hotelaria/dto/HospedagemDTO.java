@@ -16,6 +16,7 @@ public class HospedagemDTO implements Serializable {
 	
 	private LocalDate checkIn;
 	private LocalDate checkOut;
+	private Double total;
 	
 	private Integer reservaId;
 	

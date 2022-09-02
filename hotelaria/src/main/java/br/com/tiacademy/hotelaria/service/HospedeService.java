@@ -16,6 +16,8 @@ public class HospedeService extends CrudService<Hospede, Integer>{
 		buscarId.setNome(entidade.getNome());
 		buscarId.setSobrenome(entidade.getSobrenome());
 		buscarId.setTelefone(entidade.getTelefone());
+		
+		buscarId.setTipoHospede(entidade.getTipoHospede());
 
 		return buscarId;
 	}

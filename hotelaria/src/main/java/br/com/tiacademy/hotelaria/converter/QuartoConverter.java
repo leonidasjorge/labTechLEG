@@ -15,6 +15,7 @@ public class QuartoConverter implements CrudConverter<Quarto, QuartoDTO> {
 		var dto = new QuartoDTO();
 		
 		dto.setId(entidade.getId());
+		dto.setStatus(entidade.getStatus());		
 		dto.setTipo(entidade.getTipo());
 		dto.setValorDiaria(entidade.getValorDiaria());
 		
@@ -28,10 +29,10 @@ public class QuartoConverter implements CrudConverter<Quarto, QuartoDTO> {
 		
 		quarto.setId(dto.getId());
 		quarto.setTipo(dto.getTipo());
+		quarto.setStatus(dto.getStatus());
 		quarto.setValorDiaria(dto.getValorDiaria());
 		
 		return quarto;
-		
 	}
 
 }

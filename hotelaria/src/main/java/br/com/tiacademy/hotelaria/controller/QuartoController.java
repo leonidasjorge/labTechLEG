@@ -20,8 +20,7 @@ public class QuartoController extends CrudController<Quarto, QuartoDTO, Integer>
 	protected QuartoRepository repository;
 	
 	@GetMapping(path = "/valor/{diaria}")
-	public ResponseEntity<Quarto> buscarValor(@PathVariable Double diaria) {
+	public ResponseEntity<Quarto> buscarValor(@PathVariable Double diaria) {		
 		return ResponseEntity.ok(repository.consultaDiaria(diaria));
-	}
-	
+	}	
 }

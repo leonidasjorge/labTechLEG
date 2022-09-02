@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import br.com.tiacademy.hotelaria.core.crud.CrudDomain;
+import br.com.tiacademy.hotelaria.emun.Status;
 import br.com.tiacademy.hotelaria.emun.Tipo;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -25,6 +26,9 @@ public class Quarto implements CrudDomain<Integer>, Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	
+	@Enumerated(EnumType.STRING)
+	private Status status;
 	
 	@Enumerated(EnumType.STRING)
 	private Tipo tipo;
