@@ -1,6 +1,7 @@
 package br.com.tiacademy.hotelaria.repository;
 
-import org.springframework.data.jpa.repository.Query;
+import java.util.List;
+
 import org.springframework.stereotype.Repository;
 
 import br.com.tiacademy.hotelaria.core.crud.CrudRepository;
@@ -8,9 +9,8 @@ import br.com.tiacademy.hotelaria.domain.Quarto;
 
 @Repository
 public interface QuartoRepository extends CrudRepository<Quarto, Integer> {
-
-	// Query com HQL
-	@Query(value = "select q from Quarto q where q.valorDiaria = ?1")
-	Quarto consultaDiaria(Double diaria);
+	
+	// Query Spring Data
+	List<Quarto> findAllByValorDiaria(Double valorDiaria);
 	
 }

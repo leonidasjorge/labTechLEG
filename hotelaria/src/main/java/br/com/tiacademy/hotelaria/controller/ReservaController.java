@@ -40,7 +40,7 @@ public class ReservaController extends ReadController<Reserva, ReservaDTO, Integ
 		
 		var uri = builder.path("/{id}").buildAndExpand(salvar.getId()).toUri();
 		
-		return ResponseEntity.created(uri).body(converter.entidadeParaDto(salvar));
+		return ResponseEntity.created(uri).body(converter.entidadeParaDto(salvar));			
 	}
 	
 	@PutMapping("/{id}")

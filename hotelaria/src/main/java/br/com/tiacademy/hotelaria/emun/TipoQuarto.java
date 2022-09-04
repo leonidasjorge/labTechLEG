@@ -1,6 +1,6 @@
 package br.com.tiacademy.hotelaria.emun;
 
-public enum Tipo {
+public enum TipoQuarto {
 
 	CASAL,
 	FAMILIAR,

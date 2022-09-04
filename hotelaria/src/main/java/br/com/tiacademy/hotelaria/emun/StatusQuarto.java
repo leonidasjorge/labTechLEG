@@ -1,6 +1,6 @@
 package br.com.tiacademy.hotelaria.emun;
 
-public enum Status {
+public enum StatusQuarto {
 	
 	DISPONÍVEL,
 	OCUPADO;

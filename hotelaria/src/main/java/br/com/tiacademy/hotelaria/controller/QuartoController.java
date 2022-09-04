@@ -1,5 +1,7 @@
 package br.com.tiacademy.hotelaria.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,7 +22,10 @@ public class QuartoController extends CrudController<Quarto, QuartoDTO, Integer>
 	protected QuartoRepository repository;
 	
 	@GetMapping(path = "/valor/{diaria}")
-	public ResponseEntity<Quarto> buscarValor(@PathVariable Double diaria) {		
-		return ResponseEntity.ok(repository.consultaDiaria(diaria));
-	}	
+	public ResponseEntity<List<Quarto>> buscarValor(@PathVariable Double diaria) {
+		
+		List<Quarto> listaDeQuartos = repository.findAllByValorDiaria(diaria);
+		
+		return ResponseEntity.ok(listaDeQuartos);
+	}
 }
