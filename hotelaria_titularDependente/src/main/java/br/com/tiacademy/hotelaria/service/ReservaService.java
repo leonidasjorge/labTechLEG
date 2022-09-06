@@ -3,7 +3,6 @@ package br.com.tiacademy.hotelaria.service;
 import java.time.LocalDate;
 import java.util.stream.Collectors;
 
-import org.hibernate.query.criteria.internal.expression.function.AggregationFunction.COUNT;
 import org.springframework.stereotype.Service;
 
 import br.com.tiacademy.hotelaria.core.crud.CrudService;
@@ -11,7 +10,6 @@ import br.com.tiacademy.hotelaria.domain.Reserva;
 import br.com.tiacademy.hotelaria.dto.HospedeReservaDTO;
 import br.com.tiacademy.hotelaria.dto.ReservaCriarDTO;
 import br.com.tiacademy.hotelaria.emun.StatusQuarto;
-import br.com.tiacademy.hotelaria.emun.TipoQuarto;
 import br.com.tiacademy.hotelaria.exception.UnsuportedException;
 import br.com.tiacademy.hotelaria.repository.HospedeRepository;
 import lombok.AllArgsConstructor;
@@ -31,26 +29,9 @@ public class ReservaService extends CrudService<Reserva, Integer> {
 		LocalDate dataEntrada = dto.getDataEntrada();
 		LocalDate dataSaida = dto.getDataSaida();
 
-		Integer qtdHospedesDTO = dto.getHospedesDTO().size();
-		
 		if (reserva.getQuarto().getStatus().equals(StatusQuarto.OCUPADO)) {
 			throw new UnsuportedException("Este quarto está ocupado. Não é possível reservá-lo no momento.");
 		}
-
-		if (reserva.getQuarto().getTipo().equals(TipoQuarto.SOLTEIRO) && (qtdHospedesDTO != 1)) {
-			throw new UnsuportedException("Não é possível cadastrar mais hóspedes para o quarto do tipo SOLTEIRO. " +
-					  "O quarto SOLTEIRO só pode ter 1 hóspede.");
-		}
-		
-		if (reserva.getQuarto().getTipo().equals(TipoQuarto.CASAL) && ((qtdHospedesDTO <= 0) || (qtdHospedesDTO > 2))) {			
-			throw new UnsuportedException("Não é possível cadastrar mais hóspedes para o quarto do tipo CASAL. " +
-										  "O quarto CASAL só pode ter até 2 hóspedes.");
-		}
-		
-		if (reserva.getQuarto().getTipo().equals(TipoQuarto.FAMILIAR) && ((qtdHospedesDTO <= 0) || (qtdHospedesDTO > 4))) {			
-			throw new UnsuportedException("Não é possível cadastrar mais hóspedes para o quarto do tipo FAMILIAR. " +
-										  "O quarto FAMILIAR só pode ter até 4 hóspedes.");
-		}			
 		
 		reserva.setDataEntrada(dataEntrada);
 		
